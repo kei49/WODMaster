@@ -5,19 +5,20 @@ title WODMaster-ER-Diagram
 entity "t_user" {
     + id [PK]
     == 
-    name: varchar
-    email: varchar
-    pass: varchar
+    first_name: 名 varchar(30) Not NUll
+    last_name: 性 varchar(30) Not NULL
+    email: メール varchar(100) Not NUll
+    pass: パスワード varchar(30) Not NUll
 }
 
 package strength {
     entity "t_sod" {
         + id [PK]
         ==
-        name
+        name: 名前 varchar(30) Not NULL
         created_user_id: [FK(t_user.id)]
-        created: datetime
-        public: bool
+        created: 生成時間 datetime
+        public: 公開ステータス bool
     }
 
     entity "t_set" {
@@ -25,15 +26,15 @@ package strength {
         ==
         # sod_id: [FK(t_sod.id)]
         # strength_id: [FK(t_strength_master.id)]
-        location: unsigned integer
-        time: datetime
-        reps: unsigned integer
+        location: 配置 unsigned int(10)
+        time: セット時間 time
+        reps: レップス unsigned int(10)
     }
 
     entity "t_strength_master" {
         + id [PK]
         ==
-        name
+        strength_name ストレングス名: varchar(100)
     }
 }
 
@@ -43,16 +44,16 @@ package history {
         ==
         user_id: [FK(t_user.id)]
         sod_id: [FK(t_sod.id)]
-        created: datetime
-        comment: varchar
+        created: 生成時間 datetime
+        comment: text
     }
 
     entity "t_score" {
         + id [PK]
         ==
         user_sod_id: [FK(t_user_sod.id)]
-        location: unsigned integer
-        weight: continuous
+        location: 配置 unsigned int(10)
+        weight: 重さ float
     }
 }
 
