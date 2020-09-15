@@ -1,0 +1,70 @@
+@startuml
+
+title WODMaster-ER-Diagram
+
+entity "t_user" {
+    + id [PK]
+    == 
+    name: varchar
+    email: varchar
+    pass: varchar
+}
+
+package strength {
+    entity "t_sod" {
+        + id [PK]
+        ==
+        name
+        created_user_id: [FK(t_user.id)]
+        created: datetime
+        public: bool
+    }
+
+    entity "t_set" {
+        + id [PK]
+        ==
+        # sod_id: [FK(t_sod.id)]
+        # strength_id: [FK(t_strength_master.id)]
+        location: unsigned integer
+        time: datetime
+        reps: unsigned integer
+    }
+
+    entity "t_strength_master" {
+        + id [PK]
+        ==
+        name
+    }
+}
+
+package history {
+    entity "t_user_sod" {
+        + id [PK]
+        ==
+        user_id: [FK(t_user.id)]
+        sod_id: [FK(t_sod.id)]
+        created: datetime
+        comment: varchar
+    }
+
+    entity "t_score" {
+        + id [PK]
+        ==
+        user_sod_id: [FK(t_user_sod.id)]
+        location: unsigned integer
+        weight: continuous
+    }
+}
+
+
+t_user ||--o{ t_user_sod
+t_user ||--o{ t_sod
+
+t_sod ||--o{ t_user_sod
+t_sod ||--|{ t_set
+
+t_strength_master ||--o{ t_set
+
+t_user_sod ||--{ t_score
+
+@enduml
