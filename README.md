@@ -1,2 +1,3 @@
 # WODMaster
 Crossfitの日々のWODを簡単に記録し、自分の成長を可視化しながら充実したCrossFItライフを送れるアプリ
+
